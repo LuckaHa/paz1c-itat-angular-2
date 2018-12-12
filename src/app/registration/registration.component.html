@@ -1,0 +1,42 @@
+{{model}}
+
+<div *ngIf="saved" class="alert alert-success" role="alert">
+  You have been successfully registrated. For any changes sumbit the form again.
+</div>
+
+<form (ngSubmit)="formSubmit()" #participantForm="ngForm">
+  <div class="form-group">
+    <label for="inputname">Name<sup>*</sup></label>
+    <input type="text" class="form-control" id="inputname" placeholder="Write your name" 
+    [(ngModel)]="participant.name" name="inputname" required 
+    #nameModel = "ngModel" [ngClass]="{'is-valid' : nameModel.valid, 'is-invalid' : !nameModel.valid && nameModel.dirty}">
+    <div class="invalid-feedback">Please, provide your name.</div>
+  </div>
+  <div class="form-group">
+    <label for="inputsurname">Surname<sup>*</sup></label>
+    <input type="text" class="form-control" id="inputsurname" placeholder="Write your surname"
+    [(ngModel)]="participant.surname" name="inputsurname" required
+    #surnameModel = "ngModel" [class.is-valid]="surnameModel.valid" [class.is-invalid]="!surnameModel.valid && surnameModel.dirty">
+    <div class="invalid-feedback">Please, provide your surname.</div>
+  </div>
+  <div class="form-group">
+    <label for="inputorg">Organization<sup>*</sup></label>
+    <input type="text" class="form-control" id="inputorg" placeholder="Write your organization"
+    [(ngModel)]="participant.organization" name="inputorg" required>
+  </div>
+  <div class="form-group">
+    <label for="inputico">IČO<sup>*</sup></label>
+    <input type="number" class="form-control" id="inputico" placeholder="IČO: identifier of organization"
+    [(ngModel)]="participant.ico" name="inputico">
+  </div>
+
+  <div *ngFor="let ws of workshops" class="form-check">
+    <input class="form-check-input" type="radio" name="inputws" 
+    id="inputws_{{ws.name}}" [value]="ws" [(ngModel)]="participant.workshop">
+    <label class="form-check-label" for="inputws_{{ws.name}}">
+      {{ws.name}} - from {{ws.start | date}} to {{ws.end | date}}
+    </label>
+  </div> 
+
+  <button type="submit" class="btn btn-primary" [disabled]="!participantForm.form.valid" title="Fill name and surname, please.">Submit</button>
+</form>

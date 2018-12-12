@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Organization</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of participants" (click)="selectParticipant(p)">
+      <th scope="row">{{p.id}}</th>
+      <td>{{p.name}}</td>
+      <td>{{p.surname}}</td>
+      <td>{{p.organization}}</td>
+    </tr>
+  </tbody>
+</table>
+<p *ngIf="selected != undefined">
+  Selected: {{selected.name}}
+</p>
